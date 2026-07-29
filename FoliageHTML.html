@@ -32,7 +32,7 @@
   a{color:var(--gold)}
   ::selection{background:var(--vermilion); color:#fff}
 
-  /* ---------- ambient leaves ---------- */
+  /* ---------- ambient leaves (decoration only; not on a data axis) ---------- */
   .leaves{position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden}
   .leaf{position:absolute; top:-6vh; font-size:22px; opacity:.10; filter:saturate(.8);
         animation:fall linear infinite}
@@ -41,7 +41,7 @@
     100%{transform:translateY(112vh) rotate(420deg)}
   }
 
-  /* ---------- opening canopy clock ---------- */
+  /* ---------- opening canopy clock (now REAL data, static) ---------- */
   header.canopy{position:relative; z-index:1; padding:64px 0 30px; border-bottom:1px solid var(--line)}
   .kicker{font-family:var(--mono); font-size:12px; letter-spacing:.28em; text-transform:uppercase;
           color:var(--amber); margin:0 0 14px}
@@ -59,41 +59,41 @@
         box-shadow:0 0 10px var(--vermilion); animation:pulse 2.2s ease-in-out infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
-  /* the living seasonal band */
+  /* the seasonal band: a STATIC, honest average-colour curve (no animation) */
   .sweep{position:relative; height:120px; border-radius:var(--r-m); overflow:hidden;
          border:1px solid var(--line2);
          background:linear-gradient(90deg,
-            #4f6b32 0%, #6f8a3a 16%, #b79a2e 34%, #d98a26 50%,
-            #c64a23 64%, #8c2f1c 78%, #4a3326 90%, #2c241d 100%);
-         background-size:200% 100%; animation:hue 26s ease-in-out infinite alternate}
-  @keyframes hue{0%{background-position:0% 50%}100%{background-position:100% 50%}}
-  .sweep::after{content:""; position:absolute; inset:0;
-        background:linear-gradient(90deg, transparent, rgba(255,244,224,.22), transparent);
-        width:30%; animation:scan 7s linear infinite}
-  @keyframes scan{0%{transform:translateX(-120%)}100%{transform:translateX(420%)}}
+            #3f6b2e 0%, #6f8a34 14%, #b9a02c 30%, #d98a26 45%,
+            #c64a23 60%, #93331d 74%, #5a3a28 86%, #322720 100%);
+         box-shadow:inset 0 1px 0 rgba(255,244,224,.10)}
   .sweep .win{position:absolute; top:0; bottom:0; border-left:2px dashed #fff; border-right:2px dashed #fff;
         background:rgba(20,16,12,.30); display:flex; align-items:flex-start; justify-content:center}
-  .sweep .win span{font-family:var(--mono); font-size:11px; color:#fff; margin-top:8px;
-        background:rgba(0,0,0,.4); padding:2px 7px; border-radius:6px}
+  .sweep .win span{font-family:var(--mono); font-size:9.5px; color:#fff; margin-top:8px; white-space:nowrap;
+        background:rgba(0,0,0,.45); padding:2px 7px; border-radius:6px}
   .axis{display:flex; justify-content:space-between; font-family:var(--mono); font-size:11px;
         color:var(--muted); margin-top:8px; padding:0 2px}
+  .sweep-cap{font-size:12px; color:var(--muted); margin:6px 2px 0}
 
   /* ---------- generic section ---------- */
   section{position:relative; z-index:1; padding:62px 0; border-bottom:1px solid var(--line)}
   .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px}
   .sec-no{font-family:var(--mono); font-size:13px; color:var(--amber); letter-spacing:.1em}
   h2{font-family:var(--disp); font-weight:600; font-size:clamp(26px,3.6vw,40px); margin:0; letter-spacing:-.01em}
-  .sec-sub{color:var(--muted); max-width:70ch; margin:0 0 30px}
+  .sec-sub{color:var(--muted); max-width:74ch; margin:0 0 30px}
 
   /* ---------- dial ---------- */
   .dial-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:26px}
   @media(max-width:820px){.dial-grid{grid-template-columns:1fr}}
   .panel{background:var(--panel); border:1px solid var(--line2); border-radius:var(--r-l); padding:26px 26px 22px}
-  .slider-row{margin:18px 0}
+  .pie-note{font-size:13px; color:var(--paper2); background:rgba(232,181,58,.07);
+        border:1px solid rgba(232,181,58,.25); border-radius:10px; padding:10px 12px; margin:0 0 8px}
+  .pie-note b{color:var(--gold)}
+  .slider-row{margin:16px 0}
   .slider-row .top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px}
   .slider-row .name{font-weight:700}
   .slider-row .name small{display:block; font-weight:400; color:var(--muted); font-size:12.5px}
   .slider-row .val{font-family:var(--mono); font-size:22px; font-weight:700}
+  .expl{font-size:12px; color:var(--muted); margin:6px 0 0}
   input[type=range]{-webkit-appearance:none; appearance:none; width:100%; height:6px; border-radius:999px;
         background:var(--line2); outline:none}
   input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:22px; height:22px; border-radius:50%;
@@ -101,36 +101,44 @@
   input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.18)}
   input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%; background:var(--paper);
         border:3px solid var(--vermilion); cursor:pointer}
-  .sumline{display:flex; justify-content:space-between; align-items:center; margin-top:14px;
-        font-family:var(--mono); font-size:13px; padding-top:14px; border-top:1px dashed var(--line2)}
-  .sumline .ok{color:var(--moss)} .sumline .warn{color:var(--amber)}
+  .sumline{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
+        margin-top:14px; font-family:var(--mono); font-size:13px; padding-top:14px; border-top:1px dashed var(--line2)}
+  .sumline .ok{color:var(--moss)}
+  .rationale{font-size:12.5px; color:var(--paper2); margin:14px 0 0; padding-top:12px; border-top:1px dashed var(--line2)}
+  .rationale b{color:var(--paper)}
   .btn{font-family:var(--mono); font-size:12px; background:transparent; color:var(--paper2);
         border:1px solid var(--line2); padding:7px 12px; border-radius:8px; cursor:pointer; transition:.15s}
   .btn:hover{border-color:var(--amber); color:var(--paper)}
   .toggle{display:flex; align-items:center; gap:10px; margin-top:18px; font-size:14px; color:var(--paper2)}
   .toggle input{width:18px; height:18px; accent-color:var(--vermilion)}
+  .statusline2{font-size:12px; color:var(--gold); margin:10px 0 0; line-height:1.5}
 
+  .leaders-note{font-size:12.5px; color:var(--muted); margin:0 0 14px}
   .verdict{display:flex; flex-direction:column; gap:14px}
   .vcard{border:1px solid var(--line2); border-radius:var(--r-m); padding:16px 18px; background:var(--panel2)}
-  .vcard .w{font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:.08em}
-  .vcard .lead{display:flex; align-items:center; gap:12px; margin-top:6px}
+  .vcard .w{font-family:var(--mono); font-size:11.5px; color:var(--muted); letter-spacing:.06em}
+  .vcard .lead{display:flex; align-items:center; gap:12px; margin-top:6px; flex-wrap:wrap}
   .vcard .lead .disc{width:30px; height:30px; border-radius:50%; flex:none}
   .vcard .lead .who{font-family:var(--disp); font-size:22px; font-weight:600}
   .vcard .lead .sc{font-family:var(--mono); font-size:15px; color:var(--paper2)}
   .vcard p{margin:10px 0 0; font-size:13.5px; color:var(--paper2)}
 
-  /* ---------- Gantt ---------- */
-  .gantt{background:var(--panel); border:1px solid var(--line2); border-radius:var(--r-l); padding:22px 22px 14px}
+  /* ---------- Gantt (overflow fixed; window bands are a clipped overlay) ---------- */
+  .gantt{background:var(--panel); border:1px solid var(--line2); border-radius:var(--r-l);
+         padding:22px 22px 14px; overflow:hidden}
   .g-head,.g-row{display:grid; grid-template-columns:200px 1fr; align-items:center}
-  .g-axis{position:relative; height:18px; margin-left:0}
+  .g-axis{position:relative; height:18px}
   .g-axis .tick{position:absolute; top:0; transform:translateX(-50%); font-family:var(--mono);
         font-size:10.5px; color:var(--muted)}
   .g-axis .tick::after{content:""; position:absolute; left:50%; top:14px; width:1px; height:6px; background:var(--line2)}
-  .g-track{position:relative; height:100%}
-  .g-win{position:absolute; top:-4px; bottom:-200px; background:rgba(232,181,58,.07);
-        border-left:1px dashed rgba(232,181,58,.5); border-right:1px dashed rgba(232,181,58,.5); z-index:0}
-  .g-win b{position:absolute; top:-2px; left:50%; transform:translateX(-50%); font-family:var(--mono);
-        font-size:9.5px; color:var(--gold); white-space:nowrap}
+  .g-rows{position:relative}
+  .g-overlay{position:absolute; inset:0; left:200px; pointer-events:none; z-index:0}
+  .g-col{position:absolute; top:0; bottom:0; background:rgba(232,181,58,.06);
+        border-left:1px dashed rgba(232,181,58,.5); border-right:1px dashed rgba(232,181,58,.5)}
+  .g-col b{position:absolute; top:2px; left:50%; transform:translateX(-50%); font-family:var(--mono);
+        font-size:9.5px; color:var(--gold); white-space:nowrap; background:rgba(20,16,12,.55);
+        padding:1px 6px; border-radius:5px}
+  #gbody{position:relative; z-index:1}
   .g-row{border-top:1px solid var(--line); padding:9px 0}
   .g-row .g-name{font-size:14px; font-weight:500}
   .g-row .g-name.prop{color:var(--muted); font-style:italic}
@@ -147,8 +155,10 @@
   .mtable{width:100%; border-collapse:separate; border-spacing:0; background:var(--panel);
           border:1px solid var(--line2); border-radius:var(--r-l); overflow:hidden; font-size:13.5px}
   .mtable th,.mtable td{padding:11px 10px; text-align:center; border-bottom:1px solid var(--line)}
-  .mtable thead th{font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--paper);
-          background:var(--panel2); position:sticky; top:0}
+  .mtable thead th{font-family:var(--mono); font-size:12px; letter-spacing:.02em; color:var(--paper);
+          background:var(--panel2); position:sticky; top:0; vertical-align:top}
+  .mtable thead th small{display:block; font-weight:400; color:var(--muted); font-size:9.5px;
+          letter-spacing:0; margin-top:3px; line-height:1.25}
   .mtable thead th.dest{text-align:left}
   .mtable td.dest{text-align:left; font-weight:600; white-space:nowrap}
   .mtable td.dest.prop{color:var(--muted); font-style:italic}
@@ -188,12 +198,11 @@
   footer{padding:40px 0 70px; color:var(--muted); font-size:13px; text-align:center; position:relative; z-index:1}
   footer .sig{font-family:var(--disp); font-style:italic; color:var(--paper2); font-size:16px}
 
-  /* reveal */
   .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease}
   .reveal.in{opacity:1; transform:none}
 
   @media print{
-    body{background:#fff; color:#111} .leaves,.sweep::after{display:none}
+    body{background:#fff; color:#111} .leaves{display:none}
     section,header.canopy{border-color:#ccc} .panel,.gantt,.mtable,.vcard{border-color:#ccc}
   }
   @media (prefers-reduced-motion: reduce){
@@ -205,7 +214,7 @@
 <body>
 <div class="leaves" id="leaves" aria-hidden="true"></div>
 
-<!-- ============ OPENING: CANOPY CLOCK ============ -->
+<!-- ============ OPENING: CANOPY CLOCK (real average-season curve) ============ -->
 <header class="canopy">
   <div class="wrap">
     <p class="kicker">East Asia · Autumn 2026 · foliage model</p>
@@ -215,16 +224,17 @@
       yellow‑potential, and the weather risk that can strip it overnight. Drag the dial; everything below answers.</p>
     <div class="statusline">
       <span class="chip hot">Super El&nbsp;Niño 2026 — underway</span>
-      <span class="chip">peak Niño3.4 ≈ 3.6 °C</span>
+      <span class="chip">Niño‑3.4 index ≈ 3.6 °C (peak)</span>
       <span class="chip">≈ 81 % very‑strong · Oct–Dec</span>
       <span class="chip">Window A · 16–25 Oct</span>
       <span class="chip">Window B · 5–13 Dec</span>
     </div>
-    <div class="sweep" id="sweep" aria-label="Seasonal foliage colour sweep, September to December">
-      <div class="win" id="winA"><span>WIN A</span></div>
-      <div class="win" id="winB"><span>WIN B</span></div>
+    <div class="sweep" id="sweep" aria-label="Average seasonal foliage colour, September to December">
+      <div class="win" id="winA"><span>Window A</span></div>
+      <div class="win" id="winB"><span>Window B</span></div>
     </div>
     <div class="axis"><span>1 Sep</span><span>1 Oct</span><span>1 Nov</span><span>1 Dec</span><span>31 Dec</span></div>
+    <p class="sweep-cap">Average East‑Asia canopy colour across the season (green → gold → red → bare). This is real data, not animation — your two windows are bracketed on top.</p>
   </div>
 </header>
 
@@ -232,42 +242,57 @@
 <section id="dial">
   <div class="wrap reveal">
     <div class="sec-head"><span class="sec-no">CONTROL</span><h2>The dial — your eye, made literal</h2></div>
-    <p class="sec-sub">The beauty dot is <code class="mono">round((w_H·H + w_S·S + w_C·Clean)/10, 1)</code>.
-      Move the weights and watch every disc, its colour, and the window‑leader recompute. This is the
-      hue‑vs‑glow question, answered by your own hand.</p>
+    <p class="sec-sub">The beauty score (the dot) is <code class="mono">round((w_H·H + w_S·S + w_C·Clean)/10, 1)</code>.
+      Move the weights and watch every disc, its colour, and the window‑leader recompute.</p>
     <div class="dial-grid">
       <div class="panel">
+        <p class="pie-note">These three are slices of <b>one pie</b> (always 100%). Pull one slice bigger and the
+          others shrink a touch — that's the page keeping the pie whole, <b>not a bug</b>.</p>
+
         <div class="slider-row">
           <div class="top"><span class="name">Hue weight<small>reds present + hue variety</small></span>
             <span class="val mono" id="vH">45%</span></div>
           <input type="range" id="sH" min="0" max="100" step="5" value="45" aria-label="Hue weight">
+          <p class="expl">More = reward reds &amp; a varied colour mix; less = a single colour scores like a varied one.</p>
         </div>
         <div class="slider-row">
           <div class="top"><span class="name">Saturation weight<small>colour glow / purity</small></span>
             <span class="val mono" id="vS">45%</span></div>
           <input type="range" id="sS" min="0" max="100" step="5" value="45" aria-label="Saturation weight">
+          <p class="expl">More = reward pure, glowing colour; less = pale / hazy colour isn't penalised.</p>
         </div>
         <div class="slider-row">
           <div class="top"><span class="name">Cleanliness weight<small>100 − dull / brown / cloud</small></span>
             <span class="val mono" id="vC">10%</span></div>
           <input type="range" id="sC" min="0" max="100" step="5" value="10" aria-label="Cleanliness weight">
+          <p class="expl">More = penalise dull / brown / cloud harder; less = dullness matters less.</p>
         </div>
-        <div class="sumline"><span>sum of weights</span>
-          <span><span id="sum" class="ok mono">100%</span>
-            <button class="btn" id="balance" style="margin-left:10px">balance → 100%</button>
-            <button class="btn" id="reset">reset</button></span></div>
+
+        <div class="sumline"><span>total</span>
+          <span><span id="sum" class="ok mono">100% · one whole pie</span>
+            <button class="btn" id="reset" style="margin-left:10px">reset to 45 / 45 / 10</button></span></div>
+
+        <p class="rationale"><b>Why 45 / 45 / 10 by default:</b> hue and glow are the real decision, and I don't yet
+          know which your eye prefers — so they share the pie equally. Cleanliness is a penalty / tiebreaker (a dull
+          day should lose points, but on a clear day everyone is clean, so it shouldn't dominate) — hence a small slice.</p>
+
         <label class="toggle"><input type="checkbox" id="propToggle" checked>
-          include Japan alpine <span class="mono" style="color:var(--muted)">[PROPOSED]</span></label>
+          include Japan alpine <span class="mono" style="color:var(--muted)">[proposed]</span></label>
+        <p class="statusline2 mono" id="propStatus"></p>
       </div>
+
       <div class="panel verdict">
+        <p class="leaders-note">The two cards show the single best <i>live</i> site in each window — not a list of every
+          site (that's the matrix below). Toggling Japan alpine only changes a card if it outranks the current leader;
+          its row‑level effect is reported in the status line at left.</p>
         <div class="vcard">
-          <div class="w">WINDOW A · 16–25 OCT — leader</div>
+          <div class="w">WINDOW A · 16–25 OCT — window leader (best live site)</div>
           <div class="lead"><span class="disc" id="dA"></span>
             <span class="who" id="whoA">—</span><span class="sc mono" id="scA"></span></div>
           <p id="txtA"></p>
         </div>
         <div class="vcard">
-          <div class="w">WINDOW B · 5–13 DEC — leader</div>
+          <div class="w">WINDOW B · 5–13 DEC — window leader (best live site)</div>
           <div class="lead"><span class="disc" id="dB"></span>
             <span class="who" id="whoB">—</span><span class="sc mono" id="scB"></span></div>
           <p id="txtB"></p>
@@ -282,16 +307,19 @@
   <div class="wrap reveal">
     <div class="sec-head"><span class="sec-no">#1 · WHEN</span><h2>Timing, finally aligned</h2></div>
     <p class="sec-sub">Historical average vs 2025 (≈ neutral) vs the 2026 model, on one axis — with your two
-      windows as brackets. Hover a bar for exact dates. The 2026 bars slide right where El&nbsp;Niño delays the cold.</p>
+      windows as vertical bands. Hover a bar for exact dates. The 2026 bars slide right where El&nbsp;Niño delays the cold.</p>
     <div class="gantt">
       <div class="g-head">
         <div></div>
         <div class="g-axis" id="gaxis"></div>
       </div>
-      <div id="gbody"></div>
+      <div class="g-rows">
+        <div class="g-overlay" id="goverlay"></div>
+        <div id="gbody"></div>
+      </div>
       <div class="g-legend">
-        <span><i style="background:repeating-linear-gradient(90deg,var(--muted) 0 4px,transparent 4px 7px)"></i>hist avg (91–20)</span>
-        <span><i style="background:var(--bare)"></i>2025* (≈ neutral)</span>
+        <span><i style="background:repeating-linear-gradient(90deg,var(--muted) 0 4px,transparent 4px 7px)"></i>historical average (1991–2020)</span>
+        <span><i style="background:var(--bare)"></i>2025 — approximate (≈ neutral year)</span>
         <span><i style="background:linear-gradient(90deg,var(--gold),var(--vermilion))"></i>2026 model</span>
         <span><i style="background:rgba(232,181,58,.25);border:1px dashed var(--gold)"></i>your window</span>
       </div>
@@ -303,26 +331,40 @@
 <section id="scores">
   <div class="wrap reveal">
     <div class="sec-head"><span class="sec-no">#2 + #3</span><h2>The matrix — potential, state, and the gap</h2></div>
-    <p class="sec-sub">Predictors (<span class="mono">R Y C</span>) look forward; the realised state
-      (<span class="mono">H S Clean</span>) is what's on the hill; the <b>DOT</b> is the dial's verdict.
-      The pill names the gap: <i>timing‑miss</i> (still green), <i>weather‑risk</i> (great potential, fragile),
+    <p class="sec-sub">Predictors (Red‑potential, Yellow‑potential, Conditions) look forward; the realised state
+      (Hue, Saturation, Cleanliness) is what's on the hill; the <b>beauty score (the dot)</b> is the dial's verdict.
+      The Diagnosis pill names the gap: <i>timing‑miss</i> (still green), <i>weather‑risk</i> (great potential, fragile),
       <i>aligned</i>, or <i>bare</i>.</p>
     <div style="overflow-x:auto">
     <table class="mtable">
       <thead><tr>
         <th class="dest">Destination</th>
-        <th class="grpA">A · timing</th><th class="grpA">R</th><th class="grpA">Y</th><th class="grpA">C</th>
-        <th class="grpA">H</th><th class="grpA">S</th><th class="grpA">Clean</th><th class="grpA">DOT</th><th class="grpA">diag</th>
-        <th class="grpB sepL">B · timing</th><th class="grpB">R</th><th class="grpB">Y</th><th class="grpB">C</th>
-        <th class="grpB">H</th><th class="grpB">S</th><th class="grpB">Clean</th><th class="grpB">DOT</th><th class="grpB">diag</th>
+        <th class="grpA">Window A<small>timing</small></th>
+        <th class="grpA">R<small>red‑potential</small></th>
+        <th class="grpA">Y<small>yellow‑potential</small></th>
+        <th class="grpA">C<small>conditions</small></th>
+        <th class="grpA">H<small>hue</small></th>
+        <th class="grpA">S<small>saturation</small></th>
+        <th class="grpA">Clean<small>cleanliness</small></th>
+        <th class="grpA">dot<small>beauty score</small></th>
+        <th class="grpA">Diagnosis</th>
+        <th class="grpB sepL">Window B<small>timing</small></th>
+        <th class="grpB">R<small>red‑potential</small></th>
+        <th class="grpB">Y<small>yellow‑potential</small></th>
+        <th class="grpB">C<small>conditions</small></th>
+        <th class="grpB">H<small>hue</small></th>
+        <th class="grpB">S<small>saturation</small></th>
+        <th class="grpB">Clean<small>cleanliness</small></th>
+        <th class="grpB">dot<small>beauty score</small></th>
+        <th class="grpB">Diagnosis</th>
       </tr></thead>
       <tbody id="mtbody"></tbody>
     </table>
     </div>
     <div class="layers">
-      <span><span class="k">R/Y/C</span> = #3 predictors (0–10)</span>
-      <span><span class="k">H/S/Clean</span> = #2 state (0–100)</span>
-      <span><span class="k">DOT</span> = f(H,S,Clean) via dial</span>
+      <span><span class="k">R / Y / C</span> = #3 predictors (0–10)</span>
+      <span><span class="k">H / S / Clean</span> = #2 state (0–100)</span>
+      <span><span class="k">dot</span> = f(H, S, Clean) via the dial</span>
       <span>gap R↔H, C↔Clean = timing‑miss vs weather‑miss</span>
     </div>
   </div>
@@ -340,8 +382,8 @@
       </div>
       <div>
         <details open><summary>The equation</summary><div class="body">
-          <div class="eq">DOT = ROUND( (w_H·H + w_S·S + w_C·Clean) / 10 , 1 )</div>
-          Realised beauty ≈ timing‑gate(#1) × hue‑from‑potential × survival(C).<br>
+          <div class="eq">beauty score (dot) = ROUND( (w_H·H + w_S·S + w_C·Clean) / 10 , 1 )</div>
+          Realised beauty ≈ timing‑gate(#1) × hue‑from‑potential × survival(Conditions).<br>
           Bands (rubric verbatim): <b style="color:var(--c-red)">≥9 red</b> ·
           <b style="color:var(--c-orange)">≥7 orange</b> · <b style="color:var(--c-yellow)">≥5 yellow</b> ·
           <b style="color:var(--c-grey)">≥3 grey</b> · <b>＜3 black</b>.
@@ -353,10 +395,13 @@
           <b>C conditions:</b> favourable <i>and</i> safe weather — low rain/wind leaf‑loss, low cloud, low abrupt frost = the booking‑risk axis.
         </div></details>
         <details><summary>Baselines &amp; ENSO sources</summary><div class="body">
-          30‑yr normal <b>1991–2020</b> (WMO); alt tourism median 1981–2010. Drift: temperate CN 1982–2011
-          (+0.12 d/yr EOS); subtropical CN 2001–2018 (+0.41 d/yr onset); JP alpine 2011–2020 (↓ brightness).<br>
-          2026 ENSO: IRI ≈100 % from JAS; CPC ≈97 % persist to spring 2027; consensus peak Niño3.4 ≈3.6 °C;
-          ≈81 % very‑strong Oct–Dec. <i>Direction robust; magnitude re‑check 6–8 weeks out.</i>
+          30‑year normal <b>1991–2020</b> (WMO — World Meteorological Organization); alternative tourism median 1981–2010.
+          Drift studies: temperate China 1982–2011 (+0.12 days/year later end‑of‑season); subtropical China 2001–2018
+          (+0.41 days/year later onset); Japan alpine 2011–2020 (declining brightness).<br>
+          2026 ENSO: IRI (International Research Institute for Climate and Society) ≈100% El&nbsp;Niño from the
+          Jul–Aug–Sep trimester; NOAA/CPC (Climate Prediction Center) ≈97% persistence to spring 2027; consensus peak of
+          the Niño‑3.4 index (the standard El&nbsp;Niño sea‑temperature region) ≈3.6 °C; ≈81% chance of very‑strong in
+          Oct–Dec. <i>Direction robust; magnitude re‑check 6–8 weeks out.</i>
         </div></details>
       </div>
     </div>
@@ -400,15 +445,32 @@ const BENCH = [
   ["Tokyo / Kyoto lowland","late Nov–e Dec","not in your set; past for A","benchmark only"],
 ];
 const BANDS = [[9,"#C0392B","#fff"],[7,"#E67E22","#fff"],[5,"#F1C40F","#1c1c1c"],[3,"#D5D8DC","#1c1c1c"],[0,"#1C1C1C","#fff"]];
-const WINA=[10,16,10,25], WINB=[12,5,12,13]; // [m,d,m,d]
+const WINA=[10,16,10,25], WINB=[12,5,12,13]; // [month,day,month,day]
 
 /* ---------------- helpers ---------------- */
-const MO=[0,31,30,31,30,31,30,31,31,30,31,30,31]; // not used; explicit offsets below
 const OFF={9:0,10:30,11:61,12:91}; const SPAN=121; // Sep1=0 .. Dec31=121
 const pct=(m,d)=>((OFF[m]+(d-1))/SPAN*100);
 const band=v=>{for(const b of BANDS) if(v>=b[0]) return b; return BANDS[BANDS.length-1];};
-function dotOf(w,o){ if(o.H==null||o.S==null||o.Cl==null) return null;
-  const s=w.H+w.S+w.C||1; return Math.round(((w.H/s)*o.H+(w.S/s)*o.S+(w.C/s)*o.Cl)/10*10)/10; }
+const clamp5=v=>Math.max(0,Math.min(100,Math.round(v/5)*5));
+const KEYS=["H","S","C"];
+const W={H:45,S:45,C:10}; let includeProp=true;
+const active=()=>DEST.filter(d=>includeProp||!d.prop);
+
+/* constant-sum: dragging one slider eases the other two down so the pie stays 100% */
+function setWeight(changed,value){
+  value=clamp5(value);
+  const others=KEYS.filter(k=>k!==changed);
+  const rem=100-value;
+  let o0=W[others[0]], o1=W[others[1]], s=o0+o1, n0, n1;
+  if(s<=0){ n0=rem/2; n1=rem/2; } else { n0=rem*o0/s; n1=rem*o1/s; }
+  n0=clamp5(n0); n1=clamp5(n1);
+  let diff=100-(value+n0+n1);
+  if(diff!==0){ if(n0>=n1) n0=clamp5(n0+diff); else n1=clamp5(n1+diff); }
+  W[changed]=value; W[others[0]]=n0; W[others[1]]=n1;
+  sH.value=W.H; sS.value=W.S; sC.value=W.C;
+}
+function dotOf(o){ if(o.H==null||o.S==null||o.Cl==null) return null;
+  const s=W.H+W.S+W.C||1; return Math.round(((W.H/s)*o.H+(W.S/s)*o.S+(W.C/s)*o.Cl)/10*10)/10; }
 function diagOf(o){
   const t=o.t;
   if(t==="bare") return ["off‑window · bare","d-bare"];
@@ -418,11 +480,9 @@ function diagOf(o){
   if((o.C||0)<=4) return ["on peak · weather risk","d-risk"];
   return ["aligned ✔","d-ok"];
 }
-const W={H:45,S:45,C:10}; let includeProp=true;
-const active=()=>DEST.filter(d=>includeProp||!d.prop);
 
 /* ---------------- ambient leaves ---------------- */
-(function(){const L=document.getElementById('leaves'); const e=['🍁','🍂','🍃'];
+(function(){const L=document.getElementById('leaves'); const e=['🍁','','🍃'];
   for(let i=0;i<7;i++){const s=document.createElement('span'); s.className='leaf';
     s.textContent=e[i%3]; s.style.left=(Math.random()*100)+'%';
     s.style.fontSize=(14+Math.random()*16)+'px';
@@ -435,24 +495,27 @@ const active=()=>DEST.filter(d=>includeProp||!d.prop);
   b.style.left=pct(12,5)+'%';  b.style.width=(pct(12,13)-pct(12,5))+'%';})();
 
 /* ---------------- Gantt ---------------- */
+const MON=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function buildGantt(){
   const ax=document.getElementById('gaxis'); ax.innerHTML='';
   [[9,1,'1 Sep'],[10,1,'1 Oct'],[11,1,'1 Nov'],[12,1,'1 Dec'],[12,31,'31 Dec']].forEach(t=>{
     const d=document.createElement('div'); d.className='tick'; d.style.left=pct(t[0],t[1])+'%'; d.textContent=t[2]; ax.appendChild(d);});
+  // window bands as a single clipped overlay (no per-row hack, no bleed)
+  const ov=document.getElementById('goverlay'); ov.innerHTML='';
+  [['Window A',WINA],['Window B',WINB]].forEach(w=>{
+    const c=document.createElement('div'); c.className='g-col';
+    c.style.left=pct(w[1][0],w[1][1])+'%';
+    c.style.width=Math.max(0.6,pct(w[1][2],w[1][3])-pct(w[1][0],w[1][1]))+'%';
+    const b=document.createElement('b'); b.textContent=w[0]; c.appendChild(b); ov.appendChild(c);});
   const body=document.getElementById('gbody'); body.innerHTML='';
   active().forEach(d=>{
     const row=document.createElement('div'); row.className='g-row';
     const nm=document.createElement('div'); nm.className='g-name'+(d.prop?' prop':''); nm.textContent=d.n;
     const track=document.createElement('div'); track.className='g-track g-bars';
-    // window brackets (drawn per track so they line up with bars)
-    [['A',WINA],['B',WINB]].forEach(w=>{const g=document.createElement('div'); g.className='g-win';
-      g.style.left=pct(w[1][0],w[1][1])+'%'; g.style.width=(pct(w[1][2],w[1][3])-pct(w[1][0],w[1][1]))+'%';
-      const b=document.createElement('b'); b.textContent='W'+w[0]; g.appendChild(b); track.appendChild(g);});
     const mk=(cls,range)=>{const el=document.createElement('div'); el.className='bar '+cls;
       el.style.left=pct(range[0],range[1])+'%'; el.style.width=Math.max(1.2,pct(range[2],range[3])-pct(range[0],range[1]))+'%';
-      const lab=cls==='hist'?'hist avg':cls==='y25'?'2025':'2026';
-      el.title=d.n+' · '+lab+' · '+range[1]+' '+mon(range[0])+'–'+range[3]+' '+mon(range[2]); track.appendChild(el);};
-    const mon=m=>['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m];
+      const lab=cls==='hist'?'historical average':cls==='y25'?'2025 (approximate)':'2026 model';
+      el.title=d.n+' · '+lab+' · '+range[1]+' '+MON[range[0]]+'–'+range[3]+' '+MON[range[2]]; track.appendChild(el);};
     mk('hist',d.hist); mk('y25',d.y25); mk('y26',d.y26);
     row.appendChild(nm); row.appendChild(track); body.appendChild(row);
   });
@@ -466,7 +529,7 @@ function discHTML(v){ if(v==null) return '<span class="disc" style="background:#
 function buildMatrix(){
   const tb=document.getElementById('mtbody'); tb.innerHTML='';
   active().forEach(d=>{
-    const a=dotOf(W,d.A), b=dotOf(W,d.B); const da=diagOf(d.A), db=diagOf(d.B);
+    const a=dotOf(d.A), b=dotOf(d.B); const da=diagOf(d.A), db=diagOf(d.B);
     const tr=document.createElement('tr');
     tr.innerHTML=
       `<td class="dest${d.prop?' prop':''}">${d.n}</td>`+
@@ -490,15 +553,33 @@ function buildMatrix(){
 function leaders(){
   const list=active();
   const pick=win=>{let best=null,bv=-1; list.forEach(d=>{const o=win==='A'?d.A:d.B; if(o.t==='bare')return;
-    const v=dotOf(W,o); if(v!=null&&v>bv){bv=v;best=d;}}); return best?[best.n,bv]:null;};
+    const v=dotOf(o); if(v!=null&&v>bv){bv=v;best=d;}}); return best?[best.n,bv]:null;};
   const a=pick('A'), b=pick('B');
   const set=(id,n,v,txt)=>{const who=document.getElementById('who'+id), sc=document.getElementById('sc'+id),
     dc=document.getElementById('d'+id), tx=document.getElementById('txt'+id);
     if(!n){who.textContent='—';sc.textContent='';dc.style.background='#1C1C1C';dc.style.boxShadow='none';tx.textContent='';return;}
     who.textContent=n; sc.textContent=v.toFixed(1); const bd=band(v);
     dc.style.background=bd[0]; dc.style.color=bd[2]; dc.style.boxShadow=v>=7?`0 0 ${8+v}px ${bd[0]}`:'none'; tx.textContent=txt;};
-  set('A',a&&a[0],a&&a[1],'Broad, red‑capable, reliable — several sites on or near peak with cool‑night crimson (C 6–8).');
-  set('B',b&&b[0],b&&b[1],'Alishan‑or‑bust: one good site, weather‑sensitive (C6); everything mainland is bare by December.');
+  set('A',a&&a[0],a&&a[1],'Broad, red‑capable, reliable — several sites on or near peak with cool‑night crimson (Conditions 6–8).');
+  set('B',b&&b[0],b&&b[1],'Alishan‑or‑bust: one good site, weather‑sensitive (Conditions 6); everything mainland is bare by December.');
+}
+
+/* ---------------- status line under the Japan-alpine toggle ---------------- */
+function statusLine(){
+  const el=document.getElementById('propStatus');
+  const p=DEST.find(d=>d.prop);
+  if(!includeProp){ el.textContent='Japan alpine: hidden — also removed from the Gantt and the matrix.'; return; }
+  const parts=[];
+  ['A','B'].forEach(win=>{
+    const o=p[win];
+    if(o.t==='bare'||o.H==null){ parts.push('Window '+win+': bare'); return; }
+    const v=dotOf(o);
+    const ranked=active().map(d=>({n:d.n,v:dotOf(d[win]),bare:d[win].t==='bare'}))
+                          .filter(x=>!x.bare&&x.v!=null).sort((x,y)=>y.v-x.v);
+    const r=ranked.findIndex(x=>x.n===p.n)+1;
+    parts.push('Window '+win+': '+v.toFixed(1)+' (rank #'+r+')');
+  });
+  el.textContent='Japan alpine now in model · '+parts.join(' · ');
 }
 
 /* ---------------- recompute everything ---------------- */
@@ -506,17 +587,17 @@ function recompute(){
   document.getElementById('vH').textContent=W.H+'%';
   document.getElementById('vS').textContent=W.S+'%';
   document.getElementById('vC').textContent=W.C+'%';
-  const sum=W.H+W.S+C0(); const el=document.getElementById('sum');
-  el.textContent=sum+'%'; el.className=(sum===100?'ok':'warn')+' mono';
-  buildMatrix(); leaders();
+  document.getElementById('sum').textContent='100% · one whole pie';
+  buildMatrix(); leaders(); statusLine();
 }
-function C0(){return W.C;}
-['H','S','C'].forEach(k=>{document.getElementById('s'+k).addEventListener('input',e=>{W[k]=+e.target.value; recompute();});});
-document.getElementById('balance').addEventListener('click',()=>{const s=W.H+W.S+W.C||1;
-  W.H=Math.round(W.H/s*100/5)*5; W.S=Math.round(W.S/s*100/5)*5; W.C=100-W.H-W.S;
-  sH.value=W.H; sS.value=W.S; sC.value=W.C; recompute();});
-document.getElementById('reset').addEventListener('click',()=>{W.H=45;W.S=45;W.C=10;
-  sH.value=45;sS.value=45;sC.value=10; recompute();});
+
+/* ---------------- wire controls ---------------- */
+const sH=document.getElementById('sH'), sS=document.getElementById('sS'), sC=document.getElementById('sC');
+sH.addEventListener('input',e=>{setWeight('H',+e.target.value); recompute();});
+sS.addEventListener('input',e=>{setWeight('S',+e.target.value); recompute();});
+sC.addEventListener('input',e=>{setWeight('C',+e.target.value); recompute();});
+document.getElementById('reset').addEventListener('click',()=>{
+  W.H=45;W.S=45;W.C=10; sH.value=45;sS.value=45;sC.value=10; recompute();});
 document.getElementById('propToggle').addEventListener('change',e=>{includeProp=e.target.checked; buildGantt(); recompute();});
 
 /* ---------------- reveal on scroll ---------------- */
