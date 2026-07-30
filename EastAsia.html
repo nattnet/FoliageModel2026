@@ -19,14 +19,10 @@
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{
-    margin:0; background:var(--ink); color:var(--paper);
-    font-family:var(--body); font-size:16px; line-height:1.6;
+  body{margin:0; background:var(--ink); color:var(--paper); font-family:var(--body); font-size:16px; line-height:1.6;
     -webkit-font-smoothing:antialiased; overflow-x:hidden;
-    background-image:
-      radial-gradient(1200px 600px at 80% -10%, rgba(214,69,44,.10), transparent 60%),
-      radial-gradient(900px 500px at 0% 30%, rgba(138,154,85,.07), transparent 55%);
-  }
+    background-image:radial-gradient(1200px 600px at 80% -10%, rgba(214,69,44,.10), transparent 60%),
+      radial-gradient(900px 500px at 0% 30%, rgba(138,154,85,.07), transparent 55%);}
   .mono{font-family:var(--mono); font-feature-settings:"tnum" 1; letter-spacing:-.02em}
   .wrap{max-width:1180px; margin:0 auto; padding:0 26px}
   a{color:var(--gold)}
@@ -36,7 +32,6 @@
   .leaf{position:absolute; top:-6vh; font-size:22px; opacity:.10; filter:saturate(.8); animation:fall linear infinite}
   @keyframes fall{0%{transform:translateY(-10vh) rotate(0deg)}100%{transform:translateY(112vh) rotate(420deg)}}
 
-  /* ---------- hero ---------- */
   header.canopy{position:relative; z-index:1; padding:64px 0 30px; border-bottom:1px solid var(--line)}
   .kicker{font-family:var(--mono); font-size:12px; letter-spacing:.28em; text-transform:uppercase; color:var(--amber); margin:0 0 14px}
   h1{font-family:var(--disp); font-weight:900; font-size:clamp(40px,7vw,86px); line-height:.94; margin:0 0 10px; letter-spacing:-.02em}
@@ -44,35 +39,31 @@
   .lede{max-width:64ch; color:var(--paper2); font-size:18px; margin:0 0 26px}
   .lede b{color:var(--paper)}
   .statusline{display:flex; flex-wrap:wrap; gap:8px 10px; margin:0 0 8px}
-  a.chip{font-family:var(--mono); font-size:11.5px; padding:5px 10px; border:1px solid var(--line2);
-        border-radius:999px; color:var(--paper2); background:rgba(255,255,255,.02); text-decoration:none; transition:.15s}
+  a.chip{font-family:var(--mono); font-size:11.5px; padding:5px 10px; border:1px solid var(--line2); border-radius:999px;
+    color:var(--paper2); background:rgba(255,255,255,.02); text-decoration:none; transition:.15s}
   a.chip:hover{border-color:var(--amber); color:var(--paper)}
   a.chip.hot{color:var(--paper)}
-  a.chip.hot::before{content:""; display:inline-block; width:7px; height:7px; border-radius:50%;
-        background:var(--vermilion); margin-right:7px; vertical-align:middle; box-shadow:0 0 10px var(--vermilion); animation:pulse 2.2s ease-in-out infinite}
+  a.chip.hot::before{content:""; display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--vermilion);
+    margin-right:7px; vertical-align:middle; box-shadow:0 0 10px var(--vermilion); animation:pulse 2.2s ease-in-out infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
   .chip-hint{font-size:12px; color:var(--muted); margin:0 0 30px}
 
-  /* seasonal band = REAL average curve; windows = bright brackets, no dark scrim */
   .sweep{position:relative; height:120px; border-radius:var(--r-m); overflow:hidden; border:1px solid var(--line2);
-         background:linear-gradient(90deg,#3f6b2e 0%, #6f8a34 14%, #b9a02c 30%, #d98a26 45%, #c64a23 60%, #93331d 74%, #5a3a28 86%, #322720 100%);
-         box-shadow:inset 0 1px 0 rgba(255,244,224,.10)}
-  .sweep .win{position:absolute; top:0; bottom:0; background:transparent;
-        border-left:2px solid rgba(255,255,255,.95); border-right:2px solid rgba(255,255,255,.95);
-        box-shadow:inset 0 3px 0 var(--gold); display:flex; align-items:flex-start; justify-content:center}
+    background:linear-gradient(90deg,#3f6b2e 0%, #6f8a34 14%, #b9a02c 30%, #d98a26 45%, #c64a23 60%, #93331d 74%, #5a3a28 86%, #322720 100%);
+    box-shadow:inset 0 1px 0 rgba(255,244,224,.10)}
+  .sweep .win{position:absolute; top:0; bottom:0; background:transparent; border-left:2px solid rgba(255,255,255,.95);
+    border-right:2px solid rgba(255,255,255,.95); box-shadow:inset 0 3px 0 var(--gold); display:flex; align-items:flex-start; justify-content:center}
   .sweep .win span{font-family:var(--mono); font-size:9.5px; color:var(--gold); margin-top:8px; white-space:nowrap;
-        background:#15110e; border:1px solid var(--gold); padding:2px 8px; border-radius:6px}
+    background:#15110e; border:1px solid var(--gold); padding:2px 8px; border-radius:6px}
   .axis{display:flex; justify-content:space-between; font-family:var(--mono); font-size:11px; color:var(--muted); margin-top:8px; padding:0 2px}
   .sweep-cap{font-size:12px; color:var(--muted); margin:6px 2px 0}
 
-  /* ---------- sections ---------- */
   section{position:relative; z-index:1; padding:62px 0; border-bottom:1px solid var(--line)}
   .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap}
   .sec-no{font-family:var(--mono); font-size:12.5px; color:var(--amber); letter-spacing:.12em; text-transform:uppercase}
   h2{font-family:var(--disp); font-weight:600; font-size:clamp(26px,3.6vw,40px); margin:0; letter-spacing:-.01em}
-  .sec-sub{color:var(--muted); max-width:76ch; margin:0 0 30px}
+  .sec-sub{color:var(--muted); max-width:78ch; margin:0 0 30px}
 
-  /* ---------- method cards ---------- */
   .method-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px}
   @media(max-width:820px){.method-grid{grid-template-columns:1fr}}
   .mcard{background:var(--panel); border:1px solid var(--line2); border-radius:var(--r-m); padding:18px 20px}
@@ -85,7 +76,6 @@
   .bandrow i{width:16px; height:16px; border-radius:50%; flex:none}
   .pillref{display:inline-block; vertical-align:middle; margin-right:7px}
 
-  /* ---------- dial ---------- */
   .dial-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:26px}
   @media(max-width:820px){.dial-grid{grid-template-columns:1fr}}
   .panel{background:var(--panel); border:1px solid var(--line2); border-radius:var(--r-l); padding:26px 26px 22px}
@@ -110,6 +100,8 @@
   .toggle{display:flex; align-items:center; gap:10px; margin-top:18px; font-size:14px; color:var(--paper2)}
   .toggle input{width:18px; height:18px; accent-color:var(--vermilion)}
   .statusline2{font-size:12px; color:var(--gold); margin:10px 0 0; line-height:1.5}
+  .alishan-callout{font-size:12.5px; color:var(--paper2); background:rgba(232,181,58,.06); border:1px solid rgba(232,181,58,.22); border-radius:10px; padding:10px 12px; margin:12px 0 0; line-height:1.6}
+  .alishan-callout b{color:var(--gold)}
   .leaders-note{font-size:12.5px; color:var(--muted); margin:0 0 14px}
   .verdict{display:flex; flex-direction:column; gap:14px}
   .vcard{border:1px solid var(--line2); border-radius:var(--r-m); padding:16px 18px; background:var(--panel2)}
@@ -120,16 +112,15 @@
   .vcard .lead .sc{font-family:var(--mono); font-size:15px; color:var(--paper2)}
   .vcard p{margin:10px 0 0; font-size:13.5px; color:var(--paper2)}
 
-  /* ---------- matrix (sticky first column = freeze pane) ---------- */
   .mscroll{overflow-x:auto; border:1px solid var(--line2); border-radius:var(--r-l)}
   .mtable{width:100%; border-collapse:separate; border-spacing:0; background:var(--panel); font-size:13.5px}
   .mtable th,.mtable td{padding:11px 10px; text-align:center; border-bottom:1px solid var(--line)}
   .mtable thead th{font-family:var(--mono); font-size:12px; letter-spacing:.02em; color:var(--paper); background:var(--panel2); vertical-align:top}
   .mtable thead th small{display:block; font-weight:400; color:var(--muted); font-size:9.5px; letter-spacing:0; margin-top:3px; line-height:1.25}
-  .mtable thead th.dest{text-align:left; position:sticky; left:0; z-index:4; box-shadow:8px 0 10px -8px rgba(0,0,0,.7)}
+  .mtable thead th.dest{text-align:left; position:sticky; left:0; z-index:5; box-shadow:8px 0 10px -8px rgba(0,0,0,.7)}
   .mtable td.dest{text-align:left; font-weight:600; background:var(--panel); position:sticky; left:0; z-index:2; min-width:210px; box-shadow:8px 0 10px -8px rgba(0,0,0,.7)}
   .mtable td.dest.prop{color:var(--muted); font-style:italic}
-  .mtable .grpA{background:rgba(138,154,85,.06)} .mtable .grpB{background:rgba(214,69,44,.06)}
+  .mtable .grpA{background:rgba(138,154,85,.10)} .mtable .grpB{background:rgba(214,69,44,.10)}
   .mtable th.sepL,.mtable td.sepL{border-left:2px solid var(--line2)}
   .mtable tbody tr:hover td{background:rgba(255,255,255,.025)}
   .mtable tbody tr:hover td.dest{background:var(--panel2)}
@@ -145,7 +136,13 @@
   .layers{display:flex; gap:22px; flex-wrap:wrap; margin-top:18px; font-size:13px; color:var(--paper2)}
   .layers b{color:var(--paper)} .layers .k{font-family:var(--mono); color:var(--amber)}
 
-  /* ---------- Gantt ---------- */
+  .subhead{font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin:36px 0 12px}
+  .audit-note{font-size:12.5px; color:var(--muted); margin:0 0 14px; line-height:1.7}
+  .audit-src{font-size:11.5px; color:var(--muted)}
+  .variant-row td{background:rgba(232,181,58,.09) !important}
+  .vbadge{font-family:var(--mono); font-size:9.5px; color:var(--gold); border:1px solid var(--gold); border-radius:5px; padding:1px 6px; margin-left:6px; white-space:nowrap}
+  .src{display:block; font-size:11px; color:var(--muted); margin-top:4px; font-style:italic}
+
   .gantt{background:var(--panel); border:1px solid var(--line2); border-radius:var(--r-l); padding:22px 22px 14px; overflow:hidden}
   .g-head,.g-row{display:grid; grid-template-columns:210px 1fr; align-items:center}
   .g-axis{position:relative; height:18px}
@@ -168,7 +165,6 @@
   .g-legend{display:flex; gap:18px; flex-wrap:wrap; margin-top:14px; font-family:var(--mono); font-size:11px; color:var(--muted)}
   .g-legend i{display:inline-block; width:18px; height:8px; border-radius:3px; vertical-align:middle; margin-right:6px}
 
-  /* ---------- Section 5 : elsewhere ---------- */
   .bucket{margin-top:24px}
   .bucket h3{font-family:var(--disp); font-size:19px; font-weight:600; margin:0 0 4px}
   .bucket h3 .tag{font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.05em; margin-left:8px}
@@ -176,23 +172,17 @@
   .altrow{display:grid; grid-template-columns:1.1fr .9fr 160px 64px 1.7fr; gap:12px; align-items:center; padding:11px 0; border-bottom:1px solid var(--line); font-size:13px}
   .altrow .h{font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:.05em; text-transform:uppercase}
   .altrow .nm{font-weight:600}
-  .altrow .why{color:var(--muted)}
+  .altrow .why{color:var(--paper2)}
   .mini{position:relative; height:12px; background:var(--ink2); border:1px solid var(--line2); border-radius:4px; overflow:hidden}
   .mini .mb{position:absolute; top:0; bottom:0; background:linear-gradient(90deg,var(--gold),var(--vermilion))}
   .mini .mw{position:absolute; top:0; bottom:0; background:rgba(232,181,58,.12); border-left:1px dashed rgba(232,181,58,.5); border-right:1px dashed rgba(232,181,58,.5)}
   .afternote{font-size:13.5px; color:var(--paper2); background:var(--panel); border:1px solid var(--line2); border-radius:var(--r-m); padding:14px 16px; margin-top:8px}
-  @media(max-width:820px){
-    .altrow{grid-template-columns:1fr 1fr; gap:6px 12px}
-    .altrow .mini{grid-column:1 / -1; width:100%}
-    .altrow .why{grid-column:1 / -1}
-  }
+  @media(max-width:820px){.altrow{grid-template-columns:1fr 1fr; gap:6px 12px} .altrow .mini,.altrow .why{grid-column:1 / -1}}
 
   footer{padding:40px 0 70px; color:var(--muted); font-size:13px; text-align:center; position:relative; z-index:1}
   footer .sig{font-family:var(--disp); font-style:italic; color:var(--paper2); font-size:16px}
-
   .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease}
   .reveal.in{opacity:1; transform:none}
-
   @media print{body{background:#fff; color:#111} .leaves{display:none} section,header.canopy{border-color:#ccc} .panel,.gantt,.mcard,.vcard,.mscroll{border-color:#ccc}}
   @media (prefers-reduced-motion: reduce){*{animation:none !important; scroll-behavior:auto} .reveal{opacity:1; transform:none}}
 </style>
@@ -209,9 +199,9 @@
       the <b>Beauty</b> lens scores <i>how good</i> it looks on the hill, and the <b>Why</b> lens explains the gap —
       red‑potential, yellow‑potential, and the weather risk that can strip it overnight. Read the method first, then drag the dial.</p>
     <div class="statusline">
-      <a class="chip hot" href="#enso" title="Jump to the ENSO 2026 note in the method">Super El&nbsp;Niño 2026 — underway</a>
-      <a class="chip" href="#enso" title="Jump to the ENSO 2026 note in the method">Niño‑3.4 index ≈ 3.6 °C (peak)</a>
-      <a class="chip" href="#enso" title="Jump to the ENSO 2026 note in the method">≈ 81 % very‑strong · Oct–Dec</a>
+      <a class="chip hot" href="#enso" title="NOAA/CPC: El Niño continues and strengthens; ~97% persistence to spring 2027.">Super El&nbsp;Niño 2026 — underway</a>
+      <a class="chip" href="#enso" title="Consensus peak (Yale model pool). The relative Niño-3.4 median is ≈ 3.1 °C — same event, different yardstick.">Niño‑3.4 ≈ 3.6 °C peak</a>
+      <a class="chip" href="#enso" title="CPC categorical probability. IRI multi-model: 23 of 26 models (~88%) forecast very-strong for Oct–Nov–Dec 2026.">≈ 81 % very‑strong · Oct–Dec (CPC)</a>
       <a class="chip" href="#scores" title="Jump to the scored matrix">Window A · 16–25 Oct</a>
       <a class="chip" href="#scores" title="Jump to the scored matrix">Window B · 5–13 Dec</a>
     </div>
@@ -221,7 +211,7 @@
       <div class="win" id="winB"><span>Window B</span></div>
     </div>
     <div class="axis"><span>1 Sep</span><span>1 Oct</span><span>1 Nov</span><span>1 Dec</span><span>31 Dec</span></div>
-    <p class="sweep-cap">Average East‑Asia canopy colour across the season (green → gold → red → bare). This is real data, not animation — your two windows are bracketed on top.</p>
+    <p class="sweep-cap">Average East‑Asia canopy colour across the season (green → gold → red → bare). Real data, not animation — your two windows are bracketed on top.</p>
   </div>
 </header>
 
@@ -242,8 +232,8 @@
       </div>
       <div class="mcard" id="bands">
         <h3>The beauty score &amp; its bands</h3>
-        <div class="eq">beauty score = ROUND( (w_H·Hue + w_S·Saturation + w_C·Cleanliness) / 10 , 1 )</div>
-        <p>The weights (w_H, w_S, w_C) are your dial in Section 2. The score maps to a colour:</p>
+        <div class="eq">beauty score = ROUND( ((w_H·Hue + w_S·Saturation + w_C·Cleanliness) / (w_H+w_S+w_C)) / 10 , 1 )</div>
+        <p>The weights (w_H, w_S, w_C) are your dial in Section 2; the score auto‑normalises by their total. It maps to a colour:</p>
         <div class="bandrow"><i style="background:#C0392B"></i> ≥ 9 — red — exceptional, peak, optimal</div>
         <div class="bandrow"><i style="background:#E67E22"></i> ≥ 7 — orange — good, solid colour</div>
         <div class="bandrow"><i style="background:#F1C40F"></i> ≥ 5 — yellow — fair, muted or timing mismatch</div>
@@ -270,22 +260,23 @@
       <div class="mcard">
         <h3>Reading the Diagnosis pill</h3>
         <p>The pill names the gap between potential and what's actually there:</p>
-        <p><span class="pill pillref d-ok">aligned ✔</span> window sits on the peak.</p>
+        <p><span class="pill pillref d-ok">aligned ✔</span> the window sits on the peak.</p>
         <p><span class="pill pillref d-rise">rising · pre‑peak</span> building, not yet there.</p>
-        <p><span class="pill pillref d-timing">timing miss · still green</span> leaf hasn't turned — weather isn't the problem.</p>
-        <p><span class="pill pillref d-fade">past peak · still vivid / fair</span> on the way down but colour remains (a high dot here is correct).</p>
-        <p><span class="pill pillref d-risk">on peak · weather risk</span> great now, one front could strip it.</p>
+        <p><span class="pill pillref d-timing">timing miss · still green</span> the leaf has not turned; weather is not the problem.</p>
+        <p><span class="pill pillref d-fade">past peak · still vivid / fair</span> on the way down but colour remains (a high score here is correct).</p>
+        <p><span class="pill pillref d-risk">on peak · weather risk</span> great now, but one front could strip it (low conditions).</p>
         <p><span class="pill pillref d-bare">off‑window · bare</span> nothing left to see.</p>
       </div>
       <div class="mcard" id="enso">
         <h3>Baselines &amp; ENSO (El Niño–Southern Oscillation) 2026</h3>
-        <p>30‑year normal <b>1991–2020</b> (WMO — World Meteorological Organization); alternative tourism median 1981–2010.
-          Drift studies: temperate China 1982–2011 (+0.12 days/year later end‑of‑season); subtropical China 2001–2018
-          (+0.41 days/year later onset); Japanese alps 2011–2020 (declining brightness).</p>
-        <p>2026 ENSO: IRI (International Research Institute for Climate and Society) ≈100% El&nbsp;Niño from the
-          Jul–Aug–Sep trimester; NOAA/CPC (Climate Prediction Center) ≈97% persistence to spring 2027; consensus peak of
-          the Niño‑3.4 index (the standard El&nbsp;Niño sea‑temperature region) ≈3.6 °C; ≈81% chance of very‑strong in
-          Oct–Dec. <i>Direction robust; magnitude re‑check 6–8 weeks out.</i></p>
+        <p>30‑year normal <b>1991–2020</b> (WMO — World Meteorological Organization); alternative tourism median 1981–2010.</p>
+        <p>Autumn‑season drift (satellite phenology studies): temperate China 1982–2011, end‑of‑season delayed <b>+0.12 days/year</b> (Liu, 2016);
+          subtropical China 2001–2018, end‑of‑season delayed <b>+0.41 days/year</b> (Xu, 2024); Korea national average <b>+0.33 days/year</b> over the last 16 years;
+          Japanese alps 2011–2020 (declining brightness — carried from our VARI panel).</p>
+        <p>2026 ENSO: IRI — El Niño ≈100% from the Jul–Aug–Sep trimester; NOAA/CPC — ≈97% persistence to spring 2027, and an
+          <b>81% chance of very‑strong (Niño‑3.4 ≥ +2.0 °C) in Oct–Dec</b>; IRI multi‑model — <b>23 of 26 models (~88%)</b> forecast very‑strong for Oct–Nov–Dec.
+          Consensus peak of the Niño‑3.4 index ≈ <b>3.6 °C</b> (Yale model pool), possibly the strongest on record.</p>
+        <p><i>Note: the relative Niño‑3.4 median is ≈ 3.1 °C — same event, a different yardstick. Direction robust; magnitude re‑check 6–8 weeks out.</i></p>
       </div>
     </div>
   </div>
@@ -295,7 +286,7 @@
 <section id="dial">
   <div class="wrap reveal">
     <div class="sec-head"><span class="sec-no">Section 2 · Your taste</span><h2>The dial — your eye, made literal</h2></div>
-    <p class="sec-sub">The beauty score is <code class="mono">round((w_H·Hue + w_S·Saturation + w_C·Cleanliness)/10, 1)</code>
+    <p class="sec-sub">The beauty score is <code class="mono">round(((w_H·Hue + w_S·Saturation + w_C·Cleanliness)/(w_H+w_S+w_C))/10, 1)</code>
       (defined in Section 1). Move the weights and watch every disc, its colour, the window‑leader, and the Section‑5 dots recompute.</p>
     <div class="dial-grid">
       <div class="panel">
@@ -325,6 +316,13 @@
         <label class="toggle"><input type="checkbox" id="propToggle" checked>
           include Japanese alps <span class="mono" style="color:var(--muted)">[proposed]</span></label>
         <p class="statusline2 mono" id="propStatus"></p>
+        <label class="toggle"><input type="checkbox" id="alishanToggle">
+          Alishan: use sourced baseline (late Nov–mid Dec) → Window B on peak</label>
+        <p class="statusline2 mono" id="alishanNote"></p>
+        <div class="alishan-callout">Reconciliation note: the sourced Alishan peak is <b>late Nov–mid Dec</b> (Taiwan tourism guides),
+          about a week later than the model's baseline. Adopting it moves Window B from "past peak · still vivid (~7.5)" to
+          "on peak · aligned (~8.3)". Either way Alishan stays orange — the El Niño warm‑night cap keeps it below 9.0, so the
+          "no site clears 9.0" headline holds under both.</div>
       </div>
       <div class="panel verdict">
         <p class="leaders-note">The two cards show the single best <i>live</i> site in each window — not a list of every
@@ -354,27 +352,33 @@
       Scroll right — the first column stays frozen. The Diagnosis pill (Section 1) names the gap.</p>
     <div class="mscroll">
     <table class="mtable">
-      <thead><tr>
-        <th class="dest">Destination</th>
-        <th class="grpA">Window A<small>timing</small></th>
-        <th class="grpA">R<small>red‑potential</small></th>
-        <th class="grpA">Y<small>yellow‑potential</small></th>
-        <th class="grpA">C<small>conditions</small></th>
-        <th class="grpA">H<small>hue</small></th>
-        <th class="grpA">S<small>saturation</small></th>
-        <th class="grpA">Cleanliness</th>
-        <th class="grpA">beauty score</th>
-        <th class="grpA">Diagnosis</th>
-        <th class="grpB sepL">Window B<small>timing</small></th>
-        <th class="grpB">R<small>red‑potential</small></th>
-        <th class="grpB">Y<small>yellow‑potential</small></th>
-        <th class="grpB">C<small>conditions</small></th>
-        <th class="grpB">H<small>hue</small></th>
-        <th class="grpB">S<small>saturation</small></th>
-        <th class="grpB">Cleanliness</th>
-        <th class="grpB">beauty score</th>
-        <th class="grpB">Diagnosis</th>
-      </tr></thead>
+      <thead>
+        <tr>
+          <th class="dest" rowspan="2">Destination</th>
+          <th class="grpA" colspan="9">Window A · 16–25 Oct</th>
+          <th class="grpB sepL" colspan="9">Window B · 5–13 Dec</th>
+        </tr>
+        <tr>
+          <th class="grpA">timing</th>
+          <th class="grpA">R<small>red‑potential</small></th>
+          <th class="grpA">Y<small>yellow‑potential</small></th>
+          <th class="grpA">C<small>conditions</small></th>
+          <th class="grpA">H<small>hue</small></th>
+          <th class="grpA">S<small>saturation</small></th>
+          <th class="grpA">Cleanliness</th>
+          <th class="grpA">beauty score</th>
+          <th class="grpA">Diagnosis</th>
+          <th class="grpB sepL">timing</th>
+          <th class="grpB">R<small>red‑potential</small></th>
+          <th class="grpB">Y<small>yellow‑potential</small></th>
+          <th class="grpB">C<small>conditions</small></th>
+          <th class="grpB">H<small>hue</small></th>
+          <th class="grpB">S<small>saturation</small></th>
+          <th class="grpB">Cleanliness</th>
+          <th class="grpB">beauty score</th>
+          <th class="grpB">Diagnosis</th>
+        </tr>
+      </thead>
       <tbody id="mtbody"></tbody>
     </table>
     </div>
@@ -390,9 +394,12 @@
 <!-- ============ SECTION 4 · TIMING ============ -->
 <section id="timing">
   <div class="wrap reveal">
-    <div class="sec-head"><span class="sec-no">Section 4 · Timing</span><h2>Timing, finally aligned</h2></div>
-    <p class="sec-sub">Historical average vs 2025 (≈ neutral) vs the 2026 model, on one axis — with your two
-      windows as vertical bands. Hover a bar for exact dates. The 2026 bars slide right where El&nbsp;Niño delays the cold.</p>
+    <div class="sec-head"><span class="sec-no">Section 4 · Timing</span><h2>Timing — sourced baselines, then the model on top</h2></div>
+    <p class="sec-sub">Each place is first checked against a <b>sourced, ENSO‑neutral baseline</b>; the model's El Niño delta is then
+      layered on top to give the 2026 window. This keeps the provenance auditable — and lets us swap the El Niño assumption if the
+      atmosphere under‑delivers, without rebuilding anything.</p>
+    <div id="auditwrap"></div>
+    <div class="subhead">Visual — the 2026 windows on the calendar</div>
     <div class="gantt">
       <div class="g-head"><div></div><div class="g-axis" id="gaxis"></div></div>
       <div class="g-rows"><div class="g-overlay" id="goverlay"></div><div id="gbody"></div></div>
@@ -403,6 +410,13 @@
         <span><i style="background:rgba(232,181,58,.25);border:1px dashed var(--gold)"></i>your window</span>
       </div>
     </div>
+    <div class="subhead">Sources &amp; verification</div>
+    <p class="audit-note">
+      <b>Drift studies</b> — Liu (2016): temperate China end‑of‑season +0.12 d/yr (1982–2011). Xu (2024): subtropical China end‑of‑season +0.41 d/yr (2001–2018). Korea national +0.33 d/yr (last 16 years).<br>
+      <b>ENSO</b> — IRI ENSO forecast (≈100% from Jul–Aug–Sep; 23 of 26 models very‑strong for Oct–Nov–Dec). NOAA/CPC (≈97% persistence to spring 2027; 81% very‑strong in Oct–Dec). Yale Climate Connections (consensus peak ≈ 3.6 °C).<br>
+      <b>Per‑place baselines</b> — national tourism boards and established foliage guides (Korea: Dong‑A Science 2025, average peak 17 Oct / 2025 observed 29 Oct; Japan: mountain‑area &amp; lowland guides; Alishan: Taiwan tourism guides, peak Nov–Dec; Jiuzhaigou / Kanas / Bipenggou / Wuyuan / Qixia / Beijing: regional guides).<br>
+      The H / S / Cleanliness and R / Y / C scores are the model's aesthetic output, not sourced facts — they are <i>consistency‑checked</i> against the sourced phenology, not verified against it.
+    </p>
   </div>
 </section>
 
@@ -410,16 +424,16 @@
 <section id="alt">
   <div class="wrap reveal">
     <div class="sec-head"><span class="sec-no">Section 5 · Elsewhere</span><h2>The other places — and the week they need</h2></div>
-    <p class="sec-sub">These are excellent sites that simply don't peak inside your two windows. Each row shows the week it
-      actually needs in 2026, a mini‑timeline of that week against Window A and Window B, and the beauty score it would get
-      then — at your current dial weights, so it moves when you move the dial.</p>
+    <p class="sec-sub">Excellent sites that simply don't peak inside your two windows. Each row shows the week it actually needs in 2026
+      (now corrected to the sourced window), a mini‑timeline against Window A and Window B, and the beauty score it would get then —
+      at your current dial weights, so it moves when you move the dial.</p>
     <div id="altbody"></div>
   </div>
 </section>
 
 <footer><div class="wrap">
-  <div class="sig">No site clears 9.0 in 2026 for these windows — the warm‑night cap holds the ceiling at “good”.</div>
-  Foliage Model 2026 · built for Natt · British English · data mirrored from the Excel workbook · 🍁
+  <div class="sig">No site clears 9.0 in 2026 for these windows — the warm‑night cap holds the ceiling at “good” (true under both Alishan baseline variants).</div>
+  Foliage Model 2026 · built for Natt · British English · data mirrored in the Excel workbook · 🍁
 </div></footer>
 
 <script>
@@ -447,14 +461,32 @@ const DEST = [
    A:{t:"green",R:2,Y:2,C:7,H:15,S:15,Cl:85}, B:{t:"fading",R:5,Y:7,C:6,H:55,S:55,Cl:70},
    hist:[11,12,11,28], y25:[11,12,11,28], y26:[11,22,12,6]},
 ];
-/* Section 5 alternatives: bucket = when they need to be visited; H/S/Cl = state in their own best week */
+/* Alishan reconciliation variants */
+const ALISHAN = DEST.find(d=>d.n==="Alishan");
+const ALISHAN_B_CURRENT = {t:"fading", R:8,Y:7,C:6, H:78,S:74,Cl:70};
+const ALISHAN_B_VARIANT = {t:"on peak", R:8,Y:7,C:7, H:86,S:82,Cl:78};
+const ALISHAN_Y26_CURRENT = [11,18,12,3];
+const ALISHAN_Y26_VARIANT = [11,25,12,15];
+let alishanSourced = false;
+
+/* Section 5 alternatives (best weeks corrected to sourced windows) */
 const ALT = [
-  {n:"Kanas", bucket:"before", best:"23 Sep – 13 Oct", range:[9,23,10,13], H:80,S:85,Cl:88, why:"Peak ends ~13 Oct — over before Window A opens."},
-  {n:"Hokkaido", bucket:"before", best:"mid Sep – mid Oct", range:[9,12,10,15], H:82,S:80,Cl:86, why:"Declining / bare by Window A."},
-  {n:"Wuyuan", bucket:"between", best:"~1 – 22 Nov", range:[11,1,11,22], H:50,S:82,Cl:84, why:"In the gap; under El Niño, yellows dominate."},
-  {n:"Qixia", bucket:"between", best:"~1 – 20 Nov", range:[11,1,11,20], H:62,S:74,Cl:80, why:"In the gap; maples muted by warm nights."},
-  {n:"Zhongshan", bucket:"between", best:"~early – mid Nov", range:[11,3,11,18], H:58,S:70,Cl:78, why:"In the gap between the two windows."},
-  {n:"Beijing / Xi'an", bucket:"between", best:"mid Oct – early Nov", range:[10,15,11,6], H:72,S:72,Cl:82, why:"Best week (early November) falls between A and B."},
+  {n:"Kanas", bucket:"before", best:"23 Sep – 13 Oct", range:[9,23,10,13], H:80,S:85,Cl:88, why:"Peak ends ~13 Oct — over before Window A opens.", src:"Kanas guides: peak ~10 Oct (~25‑day window)."},
+  {n:"Hokkaido", bucket:"before", best:"mid Sep – mid Oct", range:[9,12,10,15], H:82,S:80,Cl:86, why:"Declining / bare by Window A.", src:"Hokkaido guides: Daisetsuzan mid Sep–early Oct."},
+  {n:"Wuyuan", bucket:"between", best:"~mid Nov – early Dec", range:[11,10,12,5], H:50,S:82,Cl:84, why:"In the gap; under El Niño, yellows dominate.", src:"Wuyuan / Shicheng guides: mid Nov–early Dec."},
+  {n:"Qixia", bucket:"between", best:"~mid / late Nov – early Dec", range:[11,15,12,5], H:62,S:74,Cl:80, why:"In the gap; maples muted by warm nights.", src:"Nanjing / Qixia guides: mid/late Nov–early Dec."},
+  {n:"Zhongshan", bucket:"between", best:"~mid Nov (aligned to Qixia)", range:[11,12,11,22], H:58,S:70,Cl:78, why:"In the gap between the two windows.", src:"Not independently pinned — aligned to same‑city Qixia."},
+  {n:"Beijing / Xi'an", bucket:"between", best:"mid Oct – early Nov", range:[10,15,11,6], H:72,S:72,Cl:82, why:"Best week (early November) falls between Window A and Window B.", src:"Beijing / Xiangshan guides + Liu (2016): mid/late Oct–early Nov."},
+];
+/* Section 4 audit (sourced baseline -> ENSO delta -> 2026) */
+const AUDIT = [
+  {n:"Korean mountains (Seoraksan)", base:"mid Oct (avg peak ~17 Oct; recent drift → late Oct)", delta:"~0 — ENSO effect on Korean autumn negligible", y26:"mid–late Oct", src:"Korea tourism boards; Dong‑A Science (2025): avg peak 17 Oct, 2025 observed 29 Oct."},
+  {n:"Korean lowlands (Seoul)", base:"late Oct–early Nov (~25 Oct–5 Nov)", delta:"~0", y26:"late Oct–early Nov", src:"Seoul tourism guides."},
+  {n:"Jiuzhaigou", base:"17 Oct–5 Nov (peak vibrancy ~15–31 Oct)", delta:"+~3–5 d (high elevation)", y26:"~20 Oct–10 Nov", src:"Jiuzhaigou travel guides."},
+  {n:"Bipenggou", base:"mid Oct–early Nov (broad by elevation)", delta:"~0–3 d (continental buffer)", y26:"mid–late Oct", src:"Sichuan travel guides."},
+  {n:"Japanese alps (Kamikochi / Nikkō)", base:"Kamikōchi ~mid Oct · Nikkō town early–mid Nov", delta:"+~3–7 d (alpine buffers part of the lowland delay)", y26:"Kamikōchi mid–late Oct · Nikkō town mid Nov", src:"Japan mountain‑area guides."},
+  {n:"Alishan", base:"mid–late Nov (model)", baseVariant:"late Nov–mid Dec (sourced)", delta:"+~3–7 d (delayed; 2,000 m keeps cool nights)", y26:"18 Nov–3 Dec", y26Variant:"~late Nov–mid Dec", src:"Alishan tourism guides: peak late Nov–mid Dec."},
+  {n:"Tokyo / Kyoto lowlands", base:"late Nov–early Dec (Tokyo avg ~20 Nov; Kyoto ~23–25 Nov, to ~10 Dec)", delta:"+~7–14 d (Japan lowland delay)", y26:"early–mid Dec", src:"Japan tourism boards."},
 ];
 const BANDS = [[9,"#C0392B","#fff"],[7,"#E67E22","#fff"],[5,"#F1C40F","#1c1c1c"],[3,"#D5D8DC","#1c1c1c"],[0,"#1C1C1C","#fff"]];
 const WINA=[10,16,10,25], WINB=[12,5,12,13];
@@ -483,164 +515,4 @@ function dotOf(o){ if(o==null||o.H==null||o.S==null||o.Cl==null) return null;
   const s=W.H+W.S+W.C||1; return Math.round(((W.H/s)*o.H+(W.S/s)*o.S+(W.C/s)*o.Cl)/10*10)/10; }
 function diagOf(o,v){
   const t=o.t;
-  if(t==="bare") return ["off‑window · bare","d-bare"];
-  if(t==="green"||/too early/.test(t)) return ["timing miss · still green","d-timing"];
-  if(t==="fading"){ if(v!=null&&v>=7) return ["past peak · still vivid","d-fade"];
-                    if(v!=null&&v>=5) return ["past peak · fair","d-fade"];
-                    return ["fading · nearly bare","d-fade"]; }
-  if(t==="rising") return ["rising · pre‑peak","d-rise"];
-  if((o.C||0)<=4) return ["on peak · weather risk","d-risk"];
-  return ["aligned ✔","d-ok"];
-}
-
-/* ---------------- ambient leaves ---------------- */
-(function(){const L=document.getElementById('leaves'); const e=['🍁','','🍃'];
-  for(let i=0;i<7;i++){const s=document.createElement('span'); s.className='leaf'; s.textContent=e[i%3];
-    s.style.left=(Math.random()*100)+'%'; s.style.fontSize=(14+Math.random()*16)+'px';
-    s.style.animationDuration=(14+Math.random()*16)+'s'; s.style.animationDelay=(-Math.random()*20)+'s'; L.appendChild(s);}})();
-
-/* ---------------- sweep brackets ---------------- */
-(function(){const a=document.getElementById('winA'), b=document.getElementById('winB');
-  a.style.left=pct(10,16)+'%'; a.style.width=(pct(10,25)-pct(10,16))+'%';
-  b.style.left=pct(12,5)+'%';  b.style.width=(pct(12,13)-pct(12,5))+'%';})();
-
-/* ---------------- Gantt ---------------- */
-const MON=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-function buildGantt(){
-  const ax=document.getElementById('gaxis'); ax.innerHTML='';
-  [[9,1,'1 Sep'],[10,1,'1 Oct'],[11,1,'1 Nov'],[12,1,'1 Dec'],[12,31,'31 Dec']].forEach(t=>{
-    const d=document.createElement('div'); d.className='tick'; d.style.left=pct(t[0],t[1])+'%'; d.textContent=t[2]; ax.appendChild(d);});
-  const ov=document.getElementById('goverlay'); ov.innerHTML='';
-  [['Window A',WINA],['Window B',WINB]].forEach(w=>{
-    const c=document.createElement('div'); c.className='g-col';
-    c.style.left=pct(w[1][0],w[1][1])+'%'; c.style.width=Math.max(0.6,pct(w[1][2],w[1][3])-pct(w[1][0],w[1][1]))+'%';
-    const b=document.createElement('b'); b.textContent=w[0]; c.appendChild(b); ov.appendChild(c);});
-  const body=document.getElementById('gbody'); body.innerHTML='';
-  active().forEach(d=>{
-    const row=document.createElement('div'); row.className='g-row';
-    const nm=document.createElement('div'); nm.className='g-name'+(d.prop?' prop':''); nm.textContent=d.n;
-    const track=document.createElement('div'); track.className='g-track g-bars';
-    const mk=(cls,range)=>{const el=document.createElement('div'); el.className='bar '+cls;
-      el.style.left=pct(range[0],range[1])+'%'; el.style.width=Math.max(1.2,pct(range[2],range[3])-pct(range[0],range[1]))+'%';
-      const lab=cls==='hist'?'historical average':cls==='y25'?'2025 (approximate)':'2026 model';
-      el.title=d.n+' · '+lab+' · '+range[1]+' '+MON[range[0]]+'–'+range[3]+' '+MON[range[2]]; track.appendChild(el);};
-    mk('hist',d.hist); mk('y25',d.y25); mk('y26',d.y26);
-    row.appendChild(nm); row.appendChild(track); body.appendChild(row);
-  });
-}
-
-/* ---------------- matrix ---------------- */
-function cell(v){return v==null?'<span class="num" style="color:var(--muted)">–</span>':'<span class="num">'+v+'</span>';}
-function discHTML(v){ if(v==null) return '<span class="disc" style="background:#1C1C1C;color:#7d828b">–</span>';
-  const b=band(v); const glow=v>=7?`box-shadow:0 0 ${6+v}px ${b[0]};`:'';
-  return `<span class="disc" style="background:${b[0]};color:${b[2]};${glow}">${v.toFixed(1)}</span>`;}
-function buildMatrix(){
-  const tb=document.getElementById('mtbody'); tb.innerHTML='';
-  active().forEach(d=>{
-    const a=dotOf(d.A), b=dotOf(d.B); const da=diagOf(d.A,a), db=diagOf(d.B,b);
-    const tr=document.createElement('tr');
-    tr.innerHTML=
-      `<td class="dest${d.prop?' prop':''}">${d.n}</td>`+
-      `<td class="grpA">${d.A.t}</td><td class="grpA num">${d.A.R}</td><td class="grpA num">${d.A.Y}</td><td class="grpA num">${d.A.C}</td>`+
-      `<td class="grpA num">${d.A.H}</td><td class="grpA num">${d.A.S}</td><td class="grpA num">${d.A.Cl}</td>`+
-      `<td class="grpA">${discHTML(a)}</td><td class="grpA"><span class="pill ${da[1]}">${da[0]}</span></td>`+
-      `<td class="grpB sepL">${d.B.t}</td><td class="grpB num">${cell(d.B.R)}</td><td class="grpB num">${cell(d.B.Y)}</td><td class="grpB num">${cell(d.B.C)}</td>`+
-      `<td class="grpB num">${d.B.H}</td><td class="grpB num">${d.B.S}</td><td class="grpB num">${d.B.Cl}</td>`+
-      `<td class="grpB">${discHTML(b)}</td><td class="grpB"><span class="pill ${db[1]}">${db[0]}</span></td>`;
-    tb.appendChild(tr);
-  });
-}
-
-/* ---------------- Section 5 ---------------- */
-const BUCKETS=[["before","Before Window A","You'd need to travel earlier — these peak before 16 Oct."],
-               ["between","Between Window A and Window B","You'd need a late‑October / November week."],
-               ["after","After Window B",""]];
-function miniHTML(range){
-  const l=pct(range[0],range[1]), w=Math.max(2,pct(range[2],range[3])-l);
-  const aL=pct(WINA[0],WINA[1]), aW=pct(WINA[2],WINA[3])-aL, bL=pct(WINB[0],WINB[1]), bW=pct(WINB[2],WINB[3])-bL;
-  return `<div class="mini"><div class="mw" style="left:${aL}%;width:${aW}%"></div><div class="mw" style="left:${bL}%;width:${bW}%"></div><div class="mb" style="left:${l}%;width:${w}%"></div></div>`;
-}
-function buildAlt(){
-  const host=document.getElementById('altbody'); host.innerHTML='';
-  BUCKETS.forEach(bk=>{
-    const items=ALT.filter(a=>a.bucket===bk[0]);
-    const wrap=document.createElement('div'); wrap.className='bucket';
-    const h=document.createElement('h3'); h.innerHTML=bk[1]+`<span class="tag">${bk[0]==='before'?'peak before 16 Oct':bk[0]==='between'?'peak 26 Oct – 4 Dec':'peak after 13 Dec'}</span>`;
-    wrap.appendChild(h);
-    if(bk[0]==='after'){
-      const note=document.createElement('div'); note.className='afternote';
-      note.innerHTML='<b>None.</b> By mid‑December the season is over across East Asia — Alishan (Section 3) is the latest holdout, and it is already in the matrix as a Window B option.';
-      wrap.appendChild(note); host.appendChild(wrap); return;
-    }
-    const desc=document.createElement('p'); desc.className='bdesc'; desc.textContent=bk[2]; wrap.appendChild(desc);
-    const head=document.createElement('div'); head.className='altrow';
-    head.innerHTML='<span class="h">Destination</span><span class="h">Best week 2026</span><span class="h">vs your windows</span><span class="h">score</span><span class="h">Why not in A &amp; B</span>';
-    wrap.appendChild(head);
-    items.forEach(a=>{
-      const v=dotOf(a);
-      const row=document.createElement('div'); row.className='altrow';
-      row.innerHTML=`<span class="nm">${a.n}</span><span class="mono">${a.best}</span>${miniHTML(a.range)}<span>${discHTML(v)}</span><span class="why">${a.why}</span>`;
-      wrap.appendChild(row);
-    });
-    host.appendChild(wrap);
-  });
-}
-
-/* ---------------- leaders ---------------- */
-function leaders(){
-  const list=active();
-  const pick=win=>{let best=null,bv=-1; list.forEach(d=>{const o=win==='A'?d.A:d.B; if(o.t==='bare')return;
-    const v=dotOf(o); if(v!=null&&v>bv){bv=v;best=d;}}); return best?[best.n,bv]:null;};
-  const a=pick('A'), b=pick('B');
-  const set=(id,n,v,txt)=>{const who=document.getElementById('who'+id), sc=document.getElementById('sc'+id),
-    dc=document.getElementById('d'+id), tx=document.getElementById('txt'+id);
-    if(!n){who.textContent='—';sc.textContent='';dc.style.background='#1C1C1C';dc.style.boxShadow='none';tx.textContent='';return;}
-    who.textContent=n; sc.textContent=v.toFixed(1); const bd=band(v);
-    dc.style.background=bd[0]; dc.style.color=bd[2]; dc.style.boxShadow=v>=7?`0 0 ${8+v}px ${bd[0]}`:'none'; tx.textContent=txt;};
-  set('A',a&&a[0],a&&a[1],'Broad, red‑capable, reliable — several sites on or near peak with cool‑night crimson (conditions 6–8).');
-  set('B',b&&b[0],b&&b[1],'Alishan leads — past its peak but still strong (elevation keeps the reds). Tokyo / Kyoto is a modest, fading alternative; Korea and northern / central China are bare by December.');
-}
-
-/* ---------------- status line under toggle ---------------- */
-function statusLine(){
-  const el=document.getElementById('propStatus');
-  const p=DEST.find(d=>d.prop);
-  if(!includeProp){ el.textContent='Japanese alps: hidden — also removed from the Gantt and the matrix.'; return; }
-  const parts=[];
-  ['A','B'].forEach(win=>{
-    const o=p[win];
-    if(o.t==='bare'||o.H==null){ parts.push('Window '+win+': bare'); return; }
-    const v=dotOf(o);
-    const ranked=active().map(d=>({n:d.n,v:dotOf(d[win]),bare:d[win].t==='bare'})).filter(x=>!x.bare&&x.v!=null).sort((x,y)=>y.v-x.v);
-    const r=ranked.findIndex(x=>x.n===p.n)+1;
-    parts.push('Window '+win+': '+v.toFixed(1)+' (rank #'+r+')');
-  });
-  el.textContent='Japanese alps now in model · '+parts.join(' · ');
-}
-
-/* ---------------- recompute ---------------- */
-function recompute(){
-  document.getElementById('vH').textContent=W.H+'%';
-  document.getElementById('vS').textContent=W.S+'%';
-  document.getElementById('vC').textContent=W.C+'%';
-  document.getElementById('sum').textContent='100% · one whole pie';
-  buildMatrix(); buildAlt(); leaders(); statusLine();
-}
-
-/* ---------------- wire ---------------- */
-const sH=document.getElementById('sH'), sS=document.getElementById('sS'), sC=document.getElementById('sC');
-sH.addEventListener('input',e=>{setWeight('H',+e.target.value); recompute();});
-sS.addEventListener('input',e=>{setWeight('S',+e.target.value); recompute();});
-sC.addEventListener('input',e=>{setWeight('C',+e.target.value); recompute();});
-document.getElementById('reset').addEventListener('click',()=>{W.H=45;W.S=45;W.C=10; sH.value=45;sS.value=45;sC.value=10; recompute();});
-document.getElementById('propToggle').addEventListener('change',e=>{includeProp=e.target.checked; buildGantt(); recompute();});
-
-/* ---------------- reveal ---------------- */
-const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}}),{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-/* ---------------- init ---------------- */
-buildGantt(); recompute();
-</script>
-</body>
-</html>
+  if(t==="bare") return ["off
