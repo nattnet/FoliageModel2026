@@ -515,4 +515,205 @@ function dotOf(o){ if(o==null||o.H==null||o.S==null||o.Cl==null) return null;
   const s=W.H+W.S+W.C||1; return Math.round(((W.H/s)*o.H+(W.S/s)*o.S+(W.C/s)*o.Cl)/10*10)/10; }
 function diagOf(o,v){
   const t=o.t;
-  if(t==="bare") return ["off
+  if(t==="bare") return ["off‑window · bare","d-bare"];
+  if(t==="green"||/too early/.test(t)) return ["timing miss · still green","d-timing"];
+  if(t==="fading"){ if(v!=null&&v>=7) return ["past peak · still vivid","d-fade"];
+                    if(v!=null&&v>=5) return ["past peak · fair","d-fade"];
+                    return ["fading · nearly bare","d-fade"]; }
+  if(t==="rising") return ["rising · pre‑peak","d-rise"];
+  if((o.C||0)<=4) return ["on peak · weather risk","d-risk"];
+  return ["aligned ✔","d-ok"];
+}
+
+/* ---------------- ambient leaves ---------------- */
+(function(){const L=document.getElementById('leaves'); const e=['🍁','','🍃'];
+  for(let i=0;i<7;i++){const s=document.createElement('span'); s.className='leaf'; s.textContent=e[i%3];
+    s.style.left=(Math.random()*100)+'%'; s.style.fontSize=(14+Math.random()*16)+'px';
+    s.style.animationDuration=(14+Math.random()*16)+'s'; s.style.animationDelay=(-Math.random()*20)+'s'; L.appendChild(s);}})();
+
+/* ---------------- sweep brackets ---------------- */
+(function(){const a=document.getElementById('winA'), b=document.getElementById('winB');
+  a.style.left=pct(10,16)+'%'; a.style.width=(pct(10,25)-pct(10,16))+'%';
+  b.style.left=pct(12,5)+'%';  b.style.width=(pct(12,13)-pct(12,5))+'%';})();
+
+/* ---------------- Gantt ---------------- */
+const MON=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function buildGantt(){
+  const ax=document.getElementById('gaxis'); ax.innerHTML='';
+  [[9,1,'1 Sep'],[10,1,'1 Oct'],[11,1,'1 Nov'],[12,1,'1 Dec'],[12,31,'31 Dec']].forEach(t=>{
+    const d=document.createElement('div'); d.className='tick'; d.style.left=pct(t[0],t[1])+'%'; d.textContent=t[2]; ax.appendChild(d);});
+  const ov=document.getElementById('goverlay'); ov.innerHTML='';
+  [['Window A',WINA],['Window B',WINB]].forEach(w=>{
+    const c=document.createElement('div'); c.className='g-col';
+    c.style.left=pct(w[1][0],w[1][1])+'%'; c.style.width=Math.max(0.6,pct(w[1][2],w[1][3])-pct(w[1][0],w[1][1]))+'%';
+    const b=document.createElement('b'); b.textContent=w[0]; c.appendChild(b); ov.appendChild(c);});
+  const body=document.getElementById('gbody'); body.innerHTML='';
+  active().forEach(d=>{
+    const row=document.createElement('div'); row.className='g-row';
+    const nm=document.createElement('div'); nm.className='g-name'+(d.prop?' prop':''); nm.textContent=d.n;
+    const track=document.createElement('div'); track.className='g-track g-bars';
+    const mk=(cls,range)=>{const el=document.createElement('div'); el.className='bar '+cls;
+      el.style.left=pct(range[0],range[1])+'%'; el.style.width=Math.max(1.2,pct(range[2],range[3])-pct(range[0],range[1]))+'%';
+      const lab=cls==='hist'?'historical average':cls==='y25'?'2025 (approximate)':'2026 model';
+      el.title=d.n+' · '+lab+' · '+range[1]+' '+MON[range[0]]+'–'+range[3]+' '+MON[range[2]]; track.appendChild(el);};
+    mk('hist',d.hist); mk('y25',d.y25); mk('y26',d.y26);
+    row.appendChild(nm); row.appendChild(track); body.appendChild(row);
+  });
+}
+
+/* ---------------- matrix ---------------- */
+function cell(v){return v==null?'<span class="num" style="color:var(--muted)">–</span>':'<span class="num">'+v+'</span>';}
+function discHTML(v){ if(v==null) return '<span class="disc" style="background:#1C1C1C;color:#7d828b">–</span>';
+  const b=band(v); const glow=v>=7?`box-shadow:0 0 ${6+v}px ${b[0]};`:'';
+  return `<span class="disc" style="background:${b[0]};color:${b[2]};${glow}">${v.toFixed(1)}</span>`;}
+function pillHTML(d){ return `<span class="pill ${d[1]}">${d[0]}</span>`; }
+function buildMatrix(){
+  const tb=document.getElementById('mtbody'); tb.innerHTML='';
+  active().forEach(d=>{
+    const a=dotOf(d.A), b=dotOf(d.B); const da=diagOf(d.A,a), db=diagOf(d.B,b);
+    const tr=document.createElement('tr');
+    tr.innerHTML=
+      `<td class="dest${d.prop?' prop':''}">${d.n}</td>`+
+      `<td class="grpA">${d.A.t}</td><td class="grpA">${cell(d.A.R)}</td><td class="grpA">${cell(d.A.Y)}</td><td class="grpA">${cell(d.A.C)}</td>`+
+      `<td class="grpA num">${d.A.H}</td><td class="grpA num">${d.A.S}</td><td class="grpA num">${d.A.Cl}</td>`+
+      `<td class="grpA">${discHTML(a)}</td><td class="grpA">${pillHTML(da)}</td>`+
+      `<td class="grpB sepL">${d.B.t}</td><td class="grpB">${cell(d.B.R)}</td><td class="grpB">${cell(d.B.Y)}</td><td class="grpB">${cell(d.B.C)}</td>`+
+      `<td class="grpB num">${d.B.H}</td><td class="grpB num">${d.B.S}</td><td class="grpB num">${d.B.Cl}</td>`+
+      `<td class="grpB">${discHTML(b)}</td><td class="grpB">${pillHTML(db)}</td>`;
+    tb.appendChild(tr);
+  });
+}
+
+/* ---------------- Section 4 audit ---------------- */
+function buildAudit(){
+  const names=active().map(d=>d.n);
+  const rows=AUDIT.filter(a=>names.includes(a.n));
+  let html='<div class="mscroll"><table class="mtable"><thead><tr>'
+    +'<th class="dest">Place</th>'
+    +'<th>Baseline peak<br><small>sourced · ENSO‑neutral</small></th>'
+    +'<th>ENSO‑2026 delta<br><small>model</small></th>'
+    +'<th>2026 = baseline + delta<br><small>model</small></th>'
+    +'<th>Source</th></tr></thead><tbody>';
+  rows.forEach(a=>{
+    const isA=a.n==="Alishan";
+    const base=isA?(alishanSourced?a.baseVariant:a.base):a.base;
+    const y26=isA?(alishanSourced?a.y26Variant:a.y26):a.y26;
+    const badge=isA?(alishanSourced?'<span class="vbadge">sourced variant</span>':'<span class="vbadge" style="border-color:var(--muted);color:var(--muted)">current model</span>'):'';
+    const cls=(isA&&alishanSourced)?' class="variant-row"':'';
+    html+='<tr'+cls+'>'
+      +'<td class="dest">'+a.n+badge+'</td>'
+      +'<td style="text-align:left">'+base+'</td>'
+      +'<td style="text-align:left">'+a.delta+'</td>'
+      +'<td style="text-align:left">'+y26+'</td>'
+      +'<td class="audit-src" style="text-align:left">'+a.src+'</td></tr>';
+  });
+  html+='</tbody></table></div>';
+  document.getElementById('auditwrap').innerHTML=html;
+}
+
+/* ---------------- Section 5 ---------------- */
+const BUCKETS=[["before","Before Window A","peak before 16 Oct","You'd need to travel earlier — these peak before 16 Oct."],
+               ["between","Between Window A and Window B","peak 26 Oct – 4 Dec","You'd need a late‑October / November week."],
+               ["after","After Window B","peak after 13 Dec",""]];
+function miniHTML(range){
+  const l=pct(range[0],range[1]), w=Math.max(2,pct(range[2],range[3])-l);
+  const aL=pct(WINA[0],WINA[1]), aW=pct(WINA[2],WINA[3])-aL, bL=pct(WINB[0],WINB[1]), bW=pct(WINB[2],WINB[3])-bL;
+  return `<div class="mini"><div class="mw" style="left:${aL}%;width:${aW}%"></div><div class="mw" style="left:${bL}%;width:${bW}%"></div><div class="mb" style="left:${l}%;width:${w}%"></div></div>`;
+}
+function buildAlt(){
+  const host=document.getElementById('altbody'); host.innerHTML='';
+  BUCKETS.forEach(bk=>{
+    const items=ALT.filter(a=>a.bucket===bk[0]);
+    const wrap=document.createElement('div'); wrap.className='bucket';
+    const h=document.createElement('h3'); h.innerHTML=bk[1]+`<span class="tag">${bk[2]}</span>`; wrap.appendChild(h);
+    if(bk[0]==='after'){
+      const note=document.createElement('div'); note.className='afternote';
+      note.innerHTML='<b>None.</b> By mid‑December the season is over across East Asia — Alishan (Section 3) is the latest holdout, and it is already in the matrix as a Window B option.';
+      wrap.appendChild(note); host.appendChild(wrap); return;
+    }
+    const desc=document.createElement('p'); desc.className='bdesc'; desc.textContent=bk[3]; wrap.appendChild(desc);
+    const head=document.createElement('div'); head.className='altrow';
+    head.innerHTML='<span class="h">Destination</span><span class="h">Best week 2026</span><span class="h">vs your windows</span><span class="h">score</span><span class="h">Why not in A &amp; B</span>';
+    wrap.appendChild(head);
+    items.forEach(a=>{
+      const v=dotOf(a);
+      const row=document.createElement('div'); row.className='altrow';
+      row.innerHTML=`<span class="nm">${a.n}</span><span class="mono">${a.best}</span>${miniHTML(a.range)}<span>${discHTML(v)}</span><span class="why">${a.why}<span class="src">Source: ${a.src}</span></span>`;
+      wrap.appendChild(row);
+    });
+    host.appendChild(wrap);
+  });
+}
+
+/* ---------------- leaders ---------------- */
+function leaders(){
+  const list=active();
+  const pick=win=>{let best=null,bv=-1; list.forEach(d=>{const o=win==='A'?d.A:d.B; if(o.t==='bare')return;
+    const v=dotOf(o); if(v!=null&&v>bv){bv=v;best=d;}}); return best?[best.n,bv]:null;};
+  const a=pick('A'), b=pick('B');
+  const set=(id,n,v,txt)=>{const who=document.getElementById('who'+id), sc=document.getElementById('sc'+id),
+    dc=document.getElementById('d'+id), tx=document.getElementById('txt'+id);
+    if(!n){who.textContent='—';sc.textContent='';dc.style.background='#1C1C1C';dc.style.boxShadow='none';tx.textContent='';return;}
+    who.textContent=n; sc.textContent=v.toFixed(1); const bd=band(v);
+    dc.style.background=bd[0]; dc.style.color=bd[2]; dc.style.boxShadow=v>=7?`0 0 ${8+v}px ${bd[0]}`:'none'; tx.textContent=txt;};
+  set('A',a&&a[0],a&&a[1],'Broad, red‑capable, reliable — several sites on or near peak with cool‑night crimson (conditions 6–8).');
+  const txtBcur='Alishan leads — past its peak but still strong (elevation keeps the reds). Tokyo / Kyoto is a modest, fading alternative; Korea and northern / central China are bare by December.';
+  const txtBvar='Alishan leads — on peak in Window B under the sourced baseline (~8.3, aligned). Tokyo / Kyoto is a modest alternative; Korea and northern / central China are bare. "No site clears 9.0" still holds (warm‑night cap).';
+  set('B',b&&b[0],b&&b[1], alishanSourced?txtBvar:txtBcur);
+}
+
+/* ---------------- status lines ---------------- */
+function statusLine(){
+  const el=document.getElementById('propStatus');
+  const p=DEST.find(d=>d.prop);
+  if(!includeProp){ el.textContent='Japanese alps: hidden — also removed from the Gantt, matrix and audit table.'; return; }
+  const parts=[];
+  ['A','B'].forEach(win=>{
+    const o=p[win];
+    if(o.t==='bare'||o.H==null){ parts.push('Window '+win+': bare'); return; }
+    const v=dotOf(o);
+    const ranked=active().map(d=>({n:d.n,v:dotOf(d[win]),bare:d[win].t==='bare'})).filter(x=>!x.bare&&x.v!=null).sort((x,y)=>y.v-x.v);
+    const r=ranked.findIndex(x=>x.n===p.n)+1;
+    parts.push('Window '+win+': '+v.toFixed(1)+' (rank #'+r+')');
+  });
+  el.textContent='Japanese alps now in model · '+parts.join(' · ');
+}
+function updateAlishanNote(){
+  const el=document.getElementById('alishanNote');
+  el.textContent = alishanSourced
+    ? 'Sourced baseline adopted: Alishan peak ~late Nov–mid Dec → Window B (5–13 Dec) sits on peak; indicative dot ~8.3 (aligned).'
+    : 'Current model: Alishan peak 18 Nov–3 Dec → Window B is past peak (still vivid, ~7.5). Tick to compare the sourced‑baseline variant.';
+}
+
+/* ---------------- recompute ---------------- */
+function recompute(){
+  document.getElementById('vH').textContent=W.H+'%';
+  document.getElementById('vS').textContent=W.S+'%';
+  document.getElementById('vC').textContent=W.C+'%';
+  document.getElementById('sum').textContent='100% · one whole pie';
+  buildMatrix(); buildAlt(); buildAudit(); leaders(); statusLine();
+}
+
+/* ---------------- wire ---------------- */
+const sH=document.getElementById('sH'), sS=document.getElementById('sS'), sC=document.getElementById('sC');
+sH.addEventListener('input',e=>{setWeight('H',+e.target.value); recompute();});
+sS.addEventListener('input',e=>{setWeight('S',+e.target.value); recompute();});
+sC.addEventListener('input',e=>{setWeight('C',+e.target.value); recompute();});
+document.getElementById('reset').addEventListener('click',()=>{W.H=45;W.S=45;W.C=10; sH.value=45;sS.value=45;sC.value=10; recompute();});
+document.getElementById('propToggle').addEventListener('change',e=>{includeProp=e.target.checked; buildGantt(); recompute();});
+document.getElementById('alishanToggle').addEventListener('change',e=>{
+  alishanSourced=e.target.checked;
+  ALISHAN.B = alishanSourced ? {...ALISHAN_B_VARIANT} : {...ALISHAN_B_CURRENT};
+  ALISHAN.y26 = (alishanSourced ? ALISHAN_Y26_VARIANT : ALISHAN_Y26_CURRENT).slice();
+  buildGantt(); recompute(); updateAlishanNote();
+});
+
+/* ---------------- reveal ---------------- */
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---------------- init ---------------- */
+buildGantt(); recompute(); updateAlishanNote();
+</script>
+</body>
+</html>
